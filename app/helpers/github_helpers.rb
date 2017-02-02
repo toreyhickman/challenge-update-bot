@@ -11,11 +11,11 @@ module GitHubHelpers
   end
 
   def expected_signature(payload_body)
-    'sha1=' + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha1'), ENV['GITHUB_WEBHOOK_SECRET'], payload_body)
+    "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), ENV["GITHUB_WEBHOOK_SECRET"], payload_body)
   end
 
   def received_signature
-    request.env['HTTP_X_HUB_SIGNATURE'] || ""
+    request.env["HTTP_X_HUB_SIGNATURE"] || ""
   end
 end
 
