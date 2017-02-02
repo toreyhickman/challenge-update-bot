@@ -24,9 +24,18 @@ describe "POST /challenge-updates" do
     end
 
     context "when for a merged pull request" do
-      it "responds with a 200 status code" do
-        make_authenticated_request_for_merging_a_pull_request
-        expect(last_response.status).to eq 200
+      context "when not for a challenge repository" do
+        it "responds with a 422 status code" do
+          make_authenticated_request_for_merging_to_a_nonchallenge
+          expect(last_response.status).to eq 422
+        end
+      end
+
+      context "when for a challenge repository" do
+        it "responds with a 200 status code" do
+          make_authenticated_request_for_merging_to_a_challenge
+          expect(last_response.status).to eq 200
+        end
       end
     end
   end

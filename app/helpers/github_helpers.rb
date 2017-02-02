@@ -11,6 +11,12 @@ module GitHubHelpers
     payload["action"] == "closed" && payload["pull_request"]["merged"] == true
   end
 
+  def for_a_challenge?
+    payload = JSON.parse(params[:payload])
+
+    payload["repository"]["name"] =~ /challenge$/
+  end
+
   private
   def signature_verified?(payload_body)
     Rack::Utils.secure_compare(expected_signature(payload_body), received_signature)
