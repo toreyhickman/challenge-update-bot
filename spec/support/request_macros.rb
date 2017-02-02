@@ -1,16 +1,40 @@
 module RequestMacros
+  SIGNATURE_HEADER = "HTTP_X_HUB_SIGNATURE"
+
   def make_request_with_no_authentication
     post "/challenge-updates"
   end
 
   def make_unauthenticated_request
-    post "/challenge-updates", {}, { "HTTP_X_HUB_SIGNATURE" => "sha1=wrong" }
+    post "/challenge-updates", "", { SIGNATURE_HEADER => "sha1=wrong" }
   end
 
-  def make_authenticated_request
-    request_body = "body"
-    correct_authentication = "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), ENV["GITHUB_WEBHOOK_SECRET"], request_body)
+  def make_authenticated_request_for_merging_a_pull_request
+    make_authenticated_request(build_payload(read_merge_non_challenge_fixture))
+  end
 
-    post "/challenge-updates", request_body, { "HTTP_X_HUB_SIGNATURE" => correct_authentication }
+  def make_authenticated_request_for_opening_a_pull_request
+    make_authenticated_request(build_payload(read_open_non_challenge_fixture))
+  end
+
+  private
+  def build_payload(payload)
+    "payload=" + payload
+  end
+
+  def make_authenticated_request(request_body)
+    post "/challenge-updates", request_body, { SIGNATURE_HEADER => correct_signature(request_body) }
+  end
+
+  def correct_signature(request_body)
+    "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), ENV["GITHUB_WEBHOOK_SECRET"], request_body)
+  end
+
+  def read_merge_non_challenge_fixture
+    File.read(APP_ROOT.to_path + "/spec/fixtures/merge_non_challenge_pull_request_payload.json")
+  end
+
+  def read_open_non_challenge_fixture
+    File.read(APP_ROOT.to_path + "/spec/fixtures/open_non_challenge_pull_request_payload.json")
   end
 end
