@@ -35,3 +35,6 @@ end
 Dir[APP_ROOT.join("app/controllers/**/*.rb")].each { |file| require file }
 Dir[APP_ROOT.join("app/helpers/**/*.rb")].each { |file| require file }
 Dir[APP_ROOT.join("app/models/**/*.rb")].each { |file| require file }
+
+# Configure libraries
+require APP_ROOT.join("config", "slack_ruby_client")
