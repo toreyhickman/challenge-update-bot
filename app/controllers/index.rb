@@ -5,7 +5,7 @@ post "/challenge-updates" do
 
   authenticator = Github::RequestAuthenticator.new
   unless authenticator.valid_signature?(github_request)
-    halt(500, { message: "Signatures didn't match!" }.to_json)
+    halt(404)
   end
 
   event = Github::PullRequestEventParser.parse(github_request.payload)
