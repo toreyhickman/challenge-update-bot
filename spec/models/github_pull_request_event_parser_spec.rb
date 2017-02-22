@@ -20,5 +20,15 @@ describe Github::PullRequestEventParser do
       parsed_pull_request_event = Github::PullRequestEventParser.parse(payload)
       expect(parsed_pull_request_event.repo_name).to eq "webhook-test-challenge"
     end
+
+    it "returns an object with a title" do
+      parsed_pull_request_event = Github::PullRequestEventParser.parse(payload)
+      expect(parsed_pull_request_event.title).to eq "Clarifies the intent of the repository"
+    end
+
+    it "returns an object with a url" do
+      parsed_pull_request_event = Github::PullRequestEventParser.parse(payload)
+      expect(parsed_pull_request_event.url).to eq "https://github.com/devbootcamp-curriculum/webhook-test-repo/pull/1"
+    end
   end
 end

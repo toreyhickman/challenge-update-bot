@@ -5,7 +5,9 @@ describe Github::PullRequestEvent do
     Github::PullRequestEvent.new({
       :action       => "closed",
       :merge_status => true,
-      :repo_name    => "some-challenge"
+      :repo_name    => "some-challenge",
+      :title        => "I did something",
+      :url          => "https://github.com/devbootcamp-challenges/some-challenge"
     })
   end
 
@@ -36,6 +38,26 @@ describe Github::PullRequestEvent do
 
     it "defaults to an empty string" do
       expect(Github::PullRequestEvent.new.repo_name).to eq ""
+    end
+  end
+
+  describe "the pull request title" do
+    it "is readable" do
+      expect(pull_request_event.title).to eq "I did something"
+    end
+
+    it "defaults to an empty string" do
+      expect(Github::PullRequestEvent.new.title).to eq ""
+    end
+  end
+
+  describe "the pull request url" do
+    it "is readable" do
+      expect(pull_request_event.url).to eq "https://github.com/devbootcamp-challenges/some-challenge"
+    end
+
+    it "defaults to an empty string" do
+      expect(Github::PullRequestEvent.new.url).to eq ""
     end
   end
 
