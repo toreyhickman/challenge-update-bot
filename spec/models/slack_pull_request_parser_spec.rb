@@ -13,12 +13,12 @@ describe SlackPullRequestParser do
       :as_user     => true,
       :attachments => [{
         :title   => "webhook-test-challenge",
-        :pretext => "A challenge was updated!",
+        :pretext => "Something happened!",
         :text    => "Explains expected responses\nhttps://github.com/devbootcamp-curriculum/webhook-test-repo/pull/2"
       }]
     }
 
-    actual_payload = SlackPullRequestParser.parse(pull_request_event, "#channel", "A challenge was updated!")
+    actual_payload = SlackPullRequestParser.parse(pull_request_event, "#channel", "Something happened!")
 
     expect(actual_payload).to eq expected_payload
   end

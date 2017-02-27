@@ -1,6 +1,6 @@
 class SlackPullRequestParser
-  DEFAULT_CHANNEL = "#bot-testing"
-  DEFAULT_HEADING = "A challence was updated!"
+  DEFAULT_CHANNEL = "#general"
+  DEFAULT_HEADING = "A pull request was merged!"
 
   def self.parse(pull_request_event, channel = DEFAULT_CHANNEL, heading = DEFAULT_HEADING)
     {
@@ -8,7 +8,7 @@ class SlackPullRequestParser
       :as_user     => true,
       :attachments => [{
         :title   => pull_request_event.repo_name,
-        :pretext => "A challenge was updated!",
+        :pretext => heading,
         :text    => "#{pull_request_event.title}\n#{pull_request_event.url}"
       }]
     }

@@ -16,7 +16,7 @@ post "/challenge-updates" do
 
   begin
     client = Slack::Web::Client.new
-    client.chat_postMessage(details_for_slack)
+    client.chat_postMessage(details_for_slack, "#bot-testing", "A challenge was updated!")
   rescue
     halt(500, "Something went wrong when sending the message to Slack.")
   end
