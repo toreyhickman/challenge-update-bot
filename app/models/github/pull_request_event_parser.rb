@@ -16,19 +16,19 @@ module Github
     end
 
     def self.extract_merge_status(payload)
-      payload["pull_request"]["merged"]
+      payload.fetch("pull_request", {}).fetch("merged", "")
     end
 
     def self.extract_repo_name(payload)
-      payload["repository"]["name"]
+      payload.fetch("repository", {}).fetch("name", "")
     end
 
     def self.extract_title(payload)
-      payload["pull_request"]["title"]
+      payload.fetch("pull_request", {}).fetch("title", "")
     end
 
     def self.extract_url(payload)
-      payload["pull_request"]["html_url"]
+      payload.fetch("pull_request", {}).fetch("html_url", "")
     end
   end
 end
