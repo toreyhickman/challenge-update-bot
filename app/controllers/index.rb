@@ -3,8 +3,7 @@ post "/challenge-updates" do
 
   github_request = Github::RequestParser.parse(request)
 
-  authenticator = Github::RequestAuthenticator.new
-  unless authenticator.valid_signature?(github_request)
+  unless Github::RequestAuthenticator.valid_signature?(github_request)
     halt(404)
   end
 
