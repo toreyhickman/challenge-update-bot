@@ -12,7 +12,7 @@ post "/challenge-updates" do
     halt(422, { message: "Not a merged pull request for a challenge repository." }.to_json)
   end
 
-  slack_message_details = Slack::MessageParser.parse_github_pull_request_event(event, "#bot-testing", "A challenge was updated!")
+  slack_message_details = Slack::MessageParser.parse_github_pull_request_event(event, "#curriculum", "A challenge was updated!")
 
   begin
     client = Slack::Web::Client.new
