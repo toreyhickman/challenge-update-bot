@@ -13,7 +13,7 @@ post "/challenge-updates" do
   end
 
   client = Slack::Web::Client.new
-  slack_message_details = Slack::MessageParser.parse_github_pull_request_event(event, "#curriculum", "A challenge was updated!")
+  slack_message_details = Slack::MessageParser.parse_github_pull_request_event(event, "#challenge-updates", "A challenge was updated!")
 
   begin
     client.chat_postMessage(slack_message_details)
