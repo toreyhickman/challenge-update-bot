@@ -8,8 +8,8 @@ post "/curriculum-updates" do
   end
 
   event = Github::PullRequestEventParser.parse(github_request.payload)
-  unless event.merged_pull_request? && event.merge_to_master?  && (event.for_a_challenge? || event.for_a_phase_guide?)
-    halt(422, { message: "Not a merged pull request for a challenge or phase guide." }.to_json)
+  unless announceable?(event)
+    halt(422, { message: "Not a merged pull request to master for a challenge or phase guide." }.to_json)
   end
 
   client = Slack::ClientBuilder.build_client(event)
