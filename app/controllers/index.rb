@@ -1,4 +1,4 @@
-post "/challenge-updates" do
+post "/curriculum-updates" do
   content_type :json
 
   github_request = Github::RequestParser.parse(request)

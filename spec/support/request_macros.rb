@@ -1,13 +1,13 @@
 module RequestMacros
-  CHALLENGE_UPDATE_ROUTE = "/challenge-updates"
+  CURRICULUM_UPDATE_ROUTE = "/curriculum-updates"
   SIGNATURE_HEADER = "HTTP_X_HUB_SIGNATURE"
 
   def make_request_with_no_authentication
-    post CHALLENGE_UPDATE_ROUTE
+    post CURRICULUM_UPDATE_ROUTE
   end
 
   def make_unauthenticated_request
-    post CHALLENGE_UPDATE_ROUTE, "", { SIGNATURE_HEADER => "sha1=wrong" }
+    post CURRICULUM_UPDATE_ROUTE, "", { SIGNATURE_HEADER => "sha1=wrong" }
   end
 
   def make_authenticated_request_for_merging_to_a_nonchallenge
@@ -28,7 +28,7 @@ module RequestMacros
   end
 
   def make_authenticated_request(request_body)
-    post CHALLENGE_UPDATE_ROUTE, request_body, { SIGNATURE_HEADER => correct_signature(request_body) }
+    post CURRICULUM_UPDATE_ROUTE, request_body, { SIGNATURE_HEADER => correct_signature(request_body) }
   end
 
   def correct_signature(request_body)
