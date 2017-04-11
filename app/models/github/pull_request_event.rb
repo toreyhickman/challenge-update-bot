@@ -2,13 +2,14 @@ module Github
   class PullRequestEvent
     PHASE_GUIDE_REPO_NAME_PATTERN = /phase\-\d+\-guide/
 
-    attr_reader :action, :merge_status, :repo_name, :title, :url
+    attr_reader :action, :merge_status, :repo_name, :title, :base_branch, :url
 
     def initialize(args = {})
       @action = args.fetch(:action, "")
       @merge_status = args.fetch(:merge_status, false)
       @repo_name = args.fetch(:repo_name, "")
       @title = args.fetch(:title, "")
+      @base_branch = args.fetch(:base_branch, "")
       @url = args.fetch(:url, "")
     end
 

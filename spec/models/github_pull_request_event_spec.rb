@@ -7,6 +7,7 @@ describe Github::PullRequestEvent do
       :merge_status => true,
       :repo_name    => "some-challenge",
       :title        => "I did something",
+      :base_branch  => "master",
       :url          => "https://github.com/devbootcamp-challenges/some-challenge"
     })
   end
@@ -48,6 +49,16 @@ describe Github::PullRequestEvent do
 
     it "defaults to an empty string" do
       expect(Github::PullRequestEvent.new.title).to eq ""
+    end
+  end
+
+  describe "the pull request base branch" do
+    it "is readable" do
+      expect(pull_request_event.base_branch).to eq "master"
+    end
+
+    it "defaults to an empty string" do
+      expect(Github::PullRequestEvent.new.base_branch).to eq ""
     end
   end
 
