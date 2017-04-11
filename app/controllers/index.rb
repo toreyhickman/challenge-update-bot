@@ -12,7 +12,7 @@ post "/curriculum-updates" do
     halt(422, { message: "Not a merged pull request for a challenge or phase guide." }.to_json)
   end
 
-  client = Slack::Web::Client.new
+  client = Slack::ClientBuilder.build_client(event)
   slack_message_details = Slack::MessageParser.parse_github_pull_request_event(event, "#challenge-updates")
 
   begin
