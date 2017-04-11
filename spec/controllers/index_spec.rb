@@ -1,6 +1,10 @@
 require_relative "../spec_helper"
 
 describe "POST /curriculum-updates" do
+  before(:each) do
+    allow_any_instance_of(Slack::Web::Client).to receive(:chat_postMessage).and_return("response")
+  end
+
   context "when no authentication is provided" do
     it "responds with a 404 status code" do
       make_request_with_no_authentication
@@ -24,6 +28,13 @@ describe "POST /curriculum-updates" do
     end
 
     context "when for a merge" do
+      context "when not a merge to master" do
+        it "responds with a 422 status code" do
+          make_authenticated_request_for_merging_to_a_non_master_branch
+          expect(last_response.status).to eq 422
+        end
+      end
+
       context "when not for a challenge repository" do
         it "responds with a 422 status code" do
           make_authenticated_request_for_merging_to_a_nonchallenge

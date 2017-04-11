@@ -26,6 +26,10 @@ module RequestMacros
     make_authenticated_request(build_payload(read_open_non_challenge_fixture))
   end
 
+  def make_authenticated_request_for_merging_to_a_non_master_branch
+    make_authenticated_request(build_payload(read_merge_non_master_phase_guide_fixture))
+  end
+
   private
   def build_payload(payload)
     "payload=" + payload
@@ -53,5 +57,9 @@ module RequestMacros
 
   def read_open_non_challenge_fixture
     File.read(APP_ROOT.to_path + "/spec/fixtures/open_non_challenge_pull_request_payload.json")
+  end
+
+  def read_merge_non_master_phase_guide_fixture
+    File.read(APP_ROOT.to_path + "/spec/fixtures/merge_non_master_phase_guide_pull_request_payload.json")
   end
 end

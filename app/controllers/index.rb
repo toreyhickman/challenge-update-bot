@@ -8,7 +8,7 @@ post "/curriculum-updates" do
   end
 
   event = Github::PullRequestEventParser.parse(github_request.payload)
-  unless event.merged_pull_request? && (event.for_a_challenge? || event.for_a_phase_guide?)
+  unless event.merged_pull_request? && event.merge_to_master?  && (event.for_a_challenge? || event.for_a_phase_guide?)
     halt(422, { message: "Not a merged pull request for a challenge or phase guide." }.to_json)
   end
 
