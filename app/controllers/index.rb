@@ -8,8 +8,8 @@ post "/curriculum-updates" do
   end
 
   event = Github::PullRequestEventParser.parse(github_request.payload)
-  unless event.merged_pull_request? && event.for_a_challenge?
-    halt(422, { message: "Not a merged pull request for a challenge repository." }.to_json)
+  unless event.merged_pull_request? && (event.for_a_challenge? || event.for_a_phase_guide?)
+    halt(422, { message: "Not a merged pull request for a challenge or phase guide." }.to_json)
   end
 
   client = Slack::Web::Client.new

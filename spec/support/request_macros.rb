@@ -18,6 +18,10 @@ module RequestMacros
     make_authenticated_request(build_payload(read_merge_challenge_fixture))
   end
 
+  def make_authenticated_request_for_merging_to_a_phase_guide
+    make_authenticated_request(build_payload(read_merge_phase_guide_fixture))
+  end
+
   def make_authenticated_request_for_opening_a_pull_request
     make_authenticated_request(build_payload(read_open_non_challenge_fixture))
   end
@@ -41,6 +45,10 @@ module RequestMacros
 
   def read_merge_challenge_fixture
     File.read(APP_ROOT.to_path + "/spec/fixtures/merge_challenge_pull_request_payload.json")
+  end
+
+  def read_merge_phase_guide_fixture
+    File.read(APP_ROOT.to_path + "/spec/fixtures/merge_phase_guide_pull_request_payload.json")
   end
 
   def read_open_non_challenge_fixture
