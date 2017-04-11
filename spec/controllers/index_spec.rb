@@ -1,6 +1,6 @@
 require_relative "../spec_helper"
 
-describe "POST /challenge-updates" do
+describe "POST /curriculum-updates" do
   context "when no authentication is provided" do
     it "responds with a 404 status code" do
       make_request_with_no_authentication

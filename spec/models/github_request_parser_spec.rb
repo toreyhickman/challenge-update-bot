@@ -3,7 +3,7 @@ require_relative "../spec_helper"
 describe Github::RequestParser do
   describe "parsing a request into a Github::Request" do
     before(:each) do
-      post "/challenge-updates", "payload={\"key\":\"value\"}", { "HTTP_X_HUB_SIGNATURE" => "sha1=xyz" }
+      post "/curriculum-updates", "payload={\"key\":\"value\"}", { "HTTP_X_HUB_SIGNATURE" => "sha1=xyz" }
     end
 
     it "returns an object with the request's signature" do
@@ -23,7 +23,7 @@ describe Github::RequestParser do
 
     context "when no signature recieved" do
       before(:each) do
-        post "/challenge-updates", "payload={\"key\":\"value\"}"
+        post "/curriculum-updates", "payload={\"key\":\"value\"}"
       end
 
       it "returns an object with an empty signature" do
@@ -34,7 +34,7 @@ describe Github::RequestParser do
 
     context "when no payload recieved" do
       before(:each) do
-        post "/challenge-updates", "", { "HTTP_X_HUB_SIGNATURE" => "sha1=xyz" }
+        post "/curriculum-updates", "", { "HTTP_X_HUB_SIGNATURE" => "sha1=xyz" }
       end
 
       it "returns an object with an empty payload" do
