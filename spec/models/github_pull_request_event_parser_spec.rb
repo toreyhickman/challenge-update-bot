@@ -26,6 +26,11 @@ describe Github::PullRequestEventParser do
       expect(parsed_pull_request_event.title).to eq "Clarifies the intent of the repository"
     end
 
+    it "returns an object with a base branch" do
+      parsed_pull_request_event = Github::PullRequestEventParser.parse(payload)
+      expect(parsed_pull_request_event.base_branch).to eq "master"
+    end
+
     it "returns an object with a url" do
       parsed_pull_request_event = Github::PullRequestEventParser.parse(payload)
       expect(parsed_pull_request_event.url).to eq "https://github.com/devbootcamp-curriculum/webhook-test-repo/pull/1"

@@ -6,6 +6,7 @@ module Github
         :merge_status => extract_merge_status(payload),
         :repo_name    => extract_repo_name(payload),
         :title        => extract_title(payload),
+        :base_branch  => extract_base_branch(payload),
         :url          => extract_url(payload)
       })
     end
@@ -25,6 +26,10 @@ module Github
 
     def self.extract_title(payload)
       payload.fetch("pull_request", {}).fetch("title", "")
+    end
+
+    def self.extract_base_branch(payload)
+      payload.fetch("pull_request", {}).fetch("base", {}).fetch("ref", "")
     end
 
     def self.extract_url(payload)
