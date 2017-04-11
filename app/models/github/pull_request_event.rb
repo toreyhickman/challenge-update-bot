@@ -1,5 +1,7 @@
 module Github
   class PullRequestEvent
+    PHASE_GUIDE_REPO_NAME_PATTERN = /phase\-\d+\-guide/
+
     attr_reader :action, :merge_status, :repo_name, :title, :url
 
     def initialize(args = {})
@@ -16,6 +18,10 @@ module Github
 
     def for_a_challenge?
       repo_name.end_with?("challenge")
+    end
+
+    def for_a_phase_guide?
+      !!repo_name.match(PHASE_GUIDE_REPO_NAME_PATTERN)
     end
 
     private

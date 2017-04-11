@@ -97,4 +97,19 @@ describe Github::PullRequestEvent do
       end
     end
   end
+
+  describe "being for a phase guide" do
+    context "when the pull request was made for a phase guide repo" do
+      it "returns true" do
+        pull_request_event = Github::PullRequestEvent.new(repo_name: "phase-1-guide")
+        expect(pull_request_event.for_a_phase_guide?).to be true
+      end
+    end
+
+    context "when the pull request was not made for a phase guide repo" do
+      it "returns false" do
+        expect(pull_request_event.for_a_phase_guide?).to be false
+      end
+    end
+  end
 end
