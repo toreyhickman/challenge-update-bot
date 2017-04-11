@@ -123,4 +123,19 @@ describe Github::PullRequestEvent do
       end
     end
   end
+
+  describe "being for a merge to master" do
+    context "when the pull request was made to master" do
+      it "returns true" do
+        expect(pull_request_event.merge_to_master?).to be true
+      end
+    end
+
+    context "when the pull request was not made to master" do
+      it "returns false" do
+        pull_request_event = Github::PullRequestEvent.new(base_branch: "some-local-branch")
+        expect(pull_request_event.merge_to_master?).to be false
+      end
+    end
+  end
 end

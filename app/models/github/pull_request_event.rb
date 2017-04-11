@@ -25,6 +25,10 @@ module Github
       !!repo_name.match(PHASE_GUIDE_REPO_NAME_PATTERN)
     end
 
+    def merge_to_master?
+      base_branch == "master"
+    end
+
     private
     def closed?
       action == "closed"
